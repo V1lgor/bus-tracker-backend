@@ -10,8 +10,6 @@ import ru.vilgor.bustracker.exceptions.RouteNotFoundException;
 import ru.vilgor.bustracker.repositories.VehicleScheduleRepository;
 import ru.vilgor.bustracker.services.ScheduleService;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/schedule")
 public class ScheduleController {
