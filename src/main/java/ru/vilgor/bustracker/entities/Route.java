@@ -16,6 +16,14 @@ public class Route {
     @Column(name = "route_vehicle_type_id")
     private VehicleType vehicleType;
 
+    @Enumerated(EnumType.ORDINAL)
+    @Column(name = "route_type_id")
+    private RouteType routeType;
+
+    @ManyToOne
+    @JoinColumn(name="route_city_id")
+    private City city;
+
     @OneToOne
     @JoinColumn(name = "route_start_stop_id")
     private Stop startStop;
@@ -26,6 +34,16 @@ public class Route {
 
     @Column(name = "route_vehicle_count")
     private int vehicleCount;
+
+    @Column(name = "route_trip_time")
+    private int tripTime;
+
+    @Column(name = "route_length")
+    private double length;
+
+    @ManyToOne
+    @JoinColumn(name = "route_company_id")
+    private Company company;
 
     public Route() {
     }
@@ -54,6 +72,22 @@ public class Route {
         this.vehicleType = vehicleType;
     }
 
+    public RouteType getRouteType() {
+        return routeType;
+    }
+
+    public void setRouteType(RouteType routeType) {
+        this.routeType = routeType;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
     public Stop getStartStop() {
         return startStop;
     }
@@ -76,5 +110,21 @@ public class Route {
 
     public void setVehicleCount(int vehicleCount) {
         this.vehicleCount = vehicleCount;
+    }
+
+    public int getTripTime() {
+        return tripTime;
+    }
+
+    public void setTripTime(int tripTime) {
+        this.tripTime = tripTime;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
