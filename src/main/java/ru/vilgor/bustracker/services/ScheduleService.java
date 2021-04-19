@@ -6,7 +6,7 @@ import ru.vilgor.bustracker.dto.RouteScheduleDto;
 import ru.vilgor.bustracker.dto.VehicleScheduleDto;
 import ru.vilgor.bustracker.entities.Route;
 import ru.vilgor.bustracker.entities.VehicleSchedule;
-import ru.vilgor.bustracker.exceptions.RouteNotFoundException;
+import ru.vilgor.bustracker.exceptions.EntityNotFoundException;
 import ru.vilgor.bustracker.repositories.RouteRepository;
 import ru.vilgor.bustracker.repositories.VehicleScheduleRepository;
 
@@ -26,7 +26,7 @@ public class ScheduleService {
         this.vehicleScheduleRepository = vehicleScheduleRepository;
     }
 
-    public RouteScheduleDto getRouteScheduleById(int routeId) throws RouteNotFoundException {
+    public RouteScheduleDto getRouteScheduleById(Integer routeId) {
 
         Optional<Route> possibleRoute = routeRepository.findById(routeId);
 
@@ -36,7 +36,7 @@ public class ScheduleService {
             route = possibleRoute.get();
         }
         else {
-            throw new RouteNotFoundException(routeId);
+            throw new EntityNotFoundException(Route.class, "id", routeId.toString());
         }
 
         List<VehicleSchedule> routeVehicleScheduleList = vehicleScheduleRepository.getRouteScheduleById(routeId);

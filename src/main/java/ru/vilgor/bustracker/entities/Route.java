@@ -1,6 +1,7 @@
 package ru.vilgor.bustracker.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Route {
@@ -44,6 +45,9 @@ public class Route {
     @ManyToOne
     @JoinColumn(name = "route_company_id")
     private Company company;
+
+    @OneToMany(mappedBy = "route", cascade = {CascadeType.ALL})
+    private List<RouteStop> stopList;
 
     public Route() {
     }
@@ -126,5 +130,21 @@ public class Route {
 
     public void setCompany(Company company) {
         this.company = company;
+    }
+
+    public double getLength() {
+        return length;
+    }
+
+    public void setLength(double length) {
+        this.length = length;
+    }
+
+    public List<RouteStop> getStopList() {
+        return stopList;
+    }
+
+    public void setStopList(List<RouteStop> stopList) {
+        this.stopList = stopList;
     }
 }

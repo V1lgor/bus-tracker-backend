@@ -1,6 +1,10 @@
 package ru.vilgor.bustracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import ru.vilgor.bustracker.entities.maps.RoadNode;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Stop {
@@ -20,14 +24,21 @@ public class Stop {
     @JoinColumn(name = "stop_city_id")
     private City city;
 
-    public Stop() {
-    }
+    @Column(name = "stop_x_pos")
+    private Double xPos;
 
-    public Stop(int id, String name, StopType stopType, City city) {
-        this.id = id;
-        this.name = name;
-        this.stopType = stopType;
-        this.city = city;
+    @Column(name = "stop_y_pos")
+    private Double yPos;
+
+    @OneToOne
+    @JoinColumn(name = "stop_road_node_id")
+    private RoadNode roadNode;
+
+    @OneToMany(mappedBy = "route")
+    @JsonIgnore
+    private List<RouteStop> routeList;
+
+    public Stop() {
     }
 
     public int getId() {
@@ -60,5 +71,29 @@ public class Stop {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public double getxPos() {
+        return xPos;
+    }
+
+    public void setxPos(double xPos) {
+        this.xPos = xPos;
+    }
+
+    public double getyPos() {
+        return yPos;
+    }
+
+    public void setyPos(double yPos) {
+        this.yPos = yPos;
+    }
+
+    public RoadNode getRoadNode() {
+        return roadNode;
+    }
+
+    public void setRoadNode(RoadNode roadNode) {
+        this.roadNode = roadNode;
     }
 }

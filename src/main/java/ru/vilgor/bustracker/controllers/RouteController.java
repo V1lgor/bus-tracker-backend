@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.vilgor.bustracker.dto.SaveRouteDto;
 import ru.vilgor.bustracker.entities.Route;
+import ru.vilgor.bustracker.entities.maps.RoadNode;
 import ru.vilgor.bustracker.services.RouteService;
 
 import java.util.List;
@@ -23,4 +24,15 @@ public class RouteController {
         return routeService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Route getRouteById(@PathVariable int id) {
+        Route route = routeService.findById(id);
+        System.out.println(route.getStopList().size());
+        return route;
+    }
+
+    @GetMapping("/{id}/path")
+    public List<RoadNode> getRoutePathById(@PathVariable int id) {
+        return routeService.getRoutePathById(id);
+    }
 }
