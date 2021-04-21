@@ -2,6 +2,7 @@ package ru.vilgor.bustracker.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.vilgor.bustracker.dto.RoadNodeDto;
 import ru.vilgor.bustracker.entities.Stop;
 import ru.vilgor.bustracker.entities.maps.RoadNode;
 import ru.vilgor.bustracker.repositories.RoadNodeRepository;
@@ -84,6 +85,22 @@ public class RoadNodeServiceImpl implements RoadNodeService {
         }
 
         return path;
+
+    }
+
+    public List<RoadNodeDto> getFullRoadGraph() {
+        List<RoadNode> roadNodeList = findAll();
+
+        List<RoadNodeDto> fullRoadGraph = new ArrayList<>();
+
+        for (RoadNode roadNode : roadNodeList) {
+            fullRoadGraph.add(new RoadNodeDto(roadNode));
+        }
+
+        return fullRoadGraph;
+    }
+
+    private void addRoadNodesFromFile(String filename) {
 
     }
 }

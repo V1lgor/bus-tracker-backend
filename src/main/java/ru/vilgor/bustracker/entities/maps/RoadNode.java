@@ -21,7 +21,7 @@ public class RoadNode {
     @Column(name = "node_y_pos")
     private double yPos;
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "roadnodeneighbours",
             joinColumns = {@JoinColumn(name = "node_id")},
             inverseJoinColumns = {@JoinColumn(name = "node_neighbour_id")})
