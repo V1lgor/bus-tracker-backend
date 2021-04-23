@@ -7,19 +7,24 @@ import java.util.Objects;
 
 @Embeddable
 public class RouteStopId implements Serializable {
+
+
     @Column(name = "route_id")
     private Integer routeId;
 
     @Column(name = "stop_id")
     private int stopId;
 
-    public RouteStopId(Integer routeId, int stopId) {
-        this.routeId = routeId;
-        this.stopId = stopId;
-    }
+    @Column(name = "is_direction_forward")
+    private boolean isDirectionForward;
 
     public RouteStopId() {
+    }
 
+    public RouteStopId(Integer routeId, int stopId, boolean direction) {
+        this.routeId = routeId;
+        this.stopId = stopId;
+        this.isDirectionForward = direction;
     }
 
     @Override
@@ -27,12 +32,12 @@ public class RouteStopId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RouteStopId that = (RouteStopId) o;
-        return routeId.equals(that.routeId) && stopId == that.stopId;
+        return stopId == that.stopId && isDirectionForward == that.isDirectionForward && Objects.equals(routeId, that.routeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(routeId, stopId);
+        return Objects.hash(routeId, stopId, isDirectionForward);
     }
 
     public Integer getRouteId() {
@@ -49,5 +54,13 @@ public class RouteStopId implements Serializable {
 
     public void setStopId(int stopId) {
         this.stopId = stopId;
+    }
+
+    public boolean isDirection() {
+        return isDirectionForward;
+    }
+
+    public void setDirection(boolean direction) {
+        this.isDirectionForward = direction;
     }
 }

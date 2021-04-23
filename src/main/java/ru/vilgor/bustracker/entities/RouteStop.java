@@ -6,50 +6,69 @@ import javax.persistence.*;
 
 @Entity(name = "route_stops")
 @Table(name = "route_stops")
-public class RouteStop implements Comparable<RouteStop>{
+@IdClass(RouteStopId.class)
+public class RouteStop implements Comparable<RouteStop> {
 
-    @EmbeddedId
-    private RouteStopId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "route_stop_id")
+    private int id;
+
+    @Id
+    @Column(name = "route_id")
+    private int routeId;
+
+    @Id
+    @Column(name = "stop_id")
+    private int stopId;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "route_id")
-    @MapsId("routeId")
+    @JoinColumn(name = "route_id", insertable = false, updatable = false)
     @JsonIgnore
     private Route route;
 
     @ManyToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "stop_id")
-    @MapsId("stopId")
+    @JoinColumn(name = "stop_id", insertable = false, updatable = false)
     private Stop stop;
 
     @Column(name = "stop_number")
     private Integer number;
 
     @Column(name = "is_direction_forward")
+    @Id
     private boolean isDirectionForward;
 
     public RouteStop() {
     }
 
-    public RouteStop(RouteStopId id, Route route, Stop stop, int number, boolean isDirectionForward) {
-        this.id = id;
-        this.route = route;
-        this.stop = stop;
-        this.number = number;
-        this.isDirectionForward = isDirectionForward;
-    }
 
     @Override
     public int compareTo(RouteStop o) {
         return this.number.compareTo(o.number);
     }
 
-    public RouteStopId getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(RouteStopId id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(int routeId) {
+        this.routeId = routeId;
+    }
+
+    public int getStopId() {
+        return stopId;
+    }
+
+    public void setStopId(int stopId) {
+        this.stopId = stopId;
     }
 
     public Route getRoute() {
@@ -83,6 +102,4 @@ public class RouteStop implements Comparable<RouteStop>{
     public void setDirectionForward(boolean directionForward) {
         isDirectionForward = directionForward;
     }
-
-
 }

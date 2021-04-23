@@ -3,6 +3,7 @@ package ru.vilgor.bustracker.services.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.vilgor.bustracker.dto.RoadNodeDto;
+import ru.vilgor.bustracker.entities.Route;
 import ru.vilgor.bustracker.entities.Stop;
 import ru.vilgor.bustracker.entities.maps.RoadNode;
 import ru.vilgor.bustracker.repositories.RoadNodeRepository;
@@ -48,7 +49,6 @@ public class RoadNodeServiceImpl implements RoadNodeService {
 
         while (!queue.isEmpty()) {
             RoadNode currentNode = queue.remove();
-
             boolean shouldStop = false;
 
             for (RoadNode neighbour : currentNode.getNeighbours()) {
@@ -66,7 +66,6 @@ public class RoadNodeServiceImpl implements RoadNodeService {
             if (shouldStop) break;
 
         }
-
         List<RoadNode> path = new ArrayList<>();
 
         RoadNode current = finishStopNode;
@@ -81,8 +80,9 @@ public class RoadNodeServiceImpl implements RoadNodeService {
         Collections.reverse(path);
 
         for (RoadNode node : path) {
-            System.out.println(node.getId());
+            System.out.print(node.getId() + " ");
         }
+        System.out.println();
 
         return path;
 
@@ -100,7 +100,11 @@ public class RoadNodeServiceImpl implements RoadNodeService {
         return fullRoadGraph;
     }
 
-    private void addRoadNodesFromFile(String filename) {
+    @Override
+    public List<Route> findRoutesBetweenStopsByIds(int startStopId, int lastStopId) {
+        Stop startStop = stopRepository.getOne(startStopId);
+        Stop lastStop = stopRepository.getOne(lastStopId);
 
+        return null;
     }
 }

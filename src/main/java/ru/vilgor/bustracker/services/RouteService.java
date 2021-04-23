@@ -1,6 +1,7 @@
 package ru.vilgor.bustracker.services;
 
 import ru.vilgor.bustracker.entities.Route;
+import ru.vilgor.bustracker.entities.RouteStop;
 import ru.vilgor.bustracker.entities.maps.RoadNode;
 
 import java.util.List;
@@ -16,5 +17,9 @@ public interface RouteService {
 
     void delete(int id);
 
-    List<RoadNode> getRoutePathById(int routeId);
+    List<RoadNode> getRoutePathById(int routeId, boolean isDirectionForward);
+    List<RouteStop> getRouteStopListById(int routeId);
+
+    boolean isStopInRoute(int stopId);
+    boolean isStopsInRoute(List<Integer> stopIdList);
 }

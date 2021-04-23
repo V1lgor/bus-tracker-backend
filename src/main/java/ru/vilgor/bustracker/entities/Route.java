@@ -1,5 +1,8 @@
 package ru.vilgor.bustracker.entities;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import ru.vilgor.bustracker.jsonview.RouteView;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -47,6 +50,7 @@ public class Route {
     private Company company;
 
     @OneToMany(mappedBy = "route", cascade = {CascadeType.ALL})
+    @JsonView(RouteView.StopList.class)
     private List<RouteStop> stopList;
 
     public Route() {
@@ -124,20 +128,20 @@ public class Route {
         this.tripTime = tripTime;
     }
 
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
-    }
-
     public double getLength() {
         return length;
     }
 
     public void setLength(double length) {
         this.length = length;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public List<RouteStop> getStopList() {
